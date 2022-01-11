@@ -1,0 +1,6 @@
+*.zip
+build/
+.vscode/
+img/
+imgs/
+.idea/
