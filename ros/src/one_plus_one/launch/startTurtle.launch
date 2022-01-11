@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="turtlesim" type="turtlesim_node" name="turtle_GUI" />
+    <node pkg="turtlesim" type="turtle_teleop_key" name="turtle_key" />
+    <node pkg="one_plus_one" type="one_plus_one_node" name="onePlusOne" output="screen" />
+</launch>
