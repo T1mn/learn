@@ -16,7 +16,7 @@ Our egomotion estimation mechanism expects features to be matched between the le
 
 1. Starting from all feature **candidates** in the current left image, we find the best match in the previous left image within a M × M search window
 2. next in the previous right image, the current right image and last in the current left image again. 
- 
+
 A ’circle match’ gets accepted, if the last feature coincides with the first feature. When matching between the left and right images, we additionally make use of the epipolar constraint using *an error tolerance of 1 pixel*. 
 > epipolar constraint is used for get R and t ?
 
@@ -36,3 +36,37 @@ By transferring ideas already employed in previous works on stereo matching [12]
 2. Next, we assign each feature in the current left image to a 50 × 50 pixel bin of an equally spaced grid. Given all sparse feature matches, we compute the minimum and maximum displacements for each bin. 
 
 Those statistics are used to locally narrow down the final search space, leading to faster matching and a higher number of matches at the same time, as evidenced in the experimental section. Fig. 4 illustrates feature matching and tracking results using our method.
+
+# Egomotion Estimation
+Given all ’circular’ feature matches from the previous section, we compute the camera motion by minimizing the sum of reprojection errors and refining the obtained velocity estimates by means of a Kalman filter. 
+
+First, bucketing is used to reduce the number of features (in practice we retain between 200 and 500 features) and spread them uniformly over the image domain. 
+
+Next, we project feature points from the **previous frame** into 3d via triangulation using the calibration parameters of the stereo camera rig. Assuming squared pixels and zero skew, the reprojection into the current image is given by with
+- homogeneous image coordinates (u v 1)<sup>T</sup>
+- focal length f
+- principal point (c<sub>u</sub>,<sub>cv</sub>)
+- rotation matrix R(r) = R<sub>x</sub>(r<sub>x</sub>)R<sub>y</sub>(r<sub>y</sub>)R<sub>z</sub>(r<sub>z</sub>)
+- translation vector t = (t<sub>x</sub> t<sub>y</sub> t<sub>z</sub>)<sup>T</sup>
+- 3d point coordinates X = (x y z)<sup>T</sup>
+- and shift s = 0 (left image), s = baseline (right image).
+Let now π(l)(X; r, t) : R3 → R2 denote the projection
+implied by Eq. 1, which takes a 3d point X and maps it
+to a pixel x(l)
+i ∈ R2 on the left image plane. Similarly, let
+π(r)(X; r,t) be the projection onto the right image plane.
+Using Gauss-Newton optimization, we iteratively minimize
+N∑
+i=1
+∥∥∥x(l)
+i −π(l)(Xi; r,t)
+∥∥∥2
++
+∥∥∥x(r)
+i −π(r)(Xi; r,t)
+∥∥∥2
+(2)
+with respect to the transformation parameters (r,t). Here
+x(l)
+i and x(r)
+i de
