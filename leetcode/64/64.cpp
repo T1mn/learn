@@ -30,9 +30,9 @@ using namespace std;
 class Solution
 {
 public:
-    int minPathSum(vector<vector<int>> &grid)
+    int minPathSum(vector<vector<int> > &grid)
     {
-        vector<vector<int>> dp(grid.size(), vector<int>(grid[0].size(), 0)); //注意大小分配中宽高前后顺序
+        vector<vector<int> > dp(grid.size(), vector<int>(grid[0].size(), 0)); //注意大小分配中宽高前后顺序
         dp[0][0] = grid[0][0];
         for (int i = 1; i != grid.size(); ++i)
             dp[i][0] = dp[i - 1][0] + grid[i][0];

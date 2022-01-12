@@ -42,7 +42,7 @@ Given all ’circular’ feature matches from the previous section, we compute t
 
 First, bucketing is used to reduce the number of features (in practice we retain between 200 and 500 features) and spread them uniformly over the image domain. 
 
-Next, we project feature points from the **previous frame** into 3d via triangulation using the calibration parameters of the stereo camera rig. Assuming squared pixels and zero skew, the reprojection into the current image is given by with
+Next, we project feature points from the **previous frame** into 3d via *triangulation* using the calibration parameters of the stereo camera rig. Assuming squared pixels and zero skew, the reprojection into the current image is given by with
 - homogeneous image coordinates (u v 1)<sup>T</sup>
 - focal length f
 - principal point (c<sub>u</sub>,<sub>cv</sub>)
