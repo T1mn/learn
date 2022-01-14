@@ -61,7 +61,7 @@ public:
         {
             if (wordIndex == word.size() - 1)
                 return true;
-            dfs(i -1 1, j, wordIndex, board, word);
+            dfs(i -1, j, wordIndex, board, word);
         }
         if (i + 1 < board.size() && board[i + 1][j] == word[wordIndex + 1])
         {

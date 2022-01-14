@@ -38,7 +38,7 @@ By transferring ideas already employed in previous works on stereo matching [12]
 Those statistics are used to locally narrow down the final search space, leading to faster matching and a higher number of matches at the same time, as evidenced in the experimental section. Fig. 4 illustrates feature matching and tracking results using our method.
 
 # Egomotion Estimation
-Given all ’circular’ feature matches from the previous section, we compute the camera motion by minimizing the sum of reprojection errors and refining the obtained velocity estimates by means of a Kalman filter. 
+Given all ’circular’ feature matches from the previous section, we compute the camera motion by minimizing the sum of reprojection errors and refining the obtained velocity estimates by means of a Kalman filter.
 
 First, bucketing is used to reduce the number of features (in practice we retain between 200 and 500 features) and spread them uniformly over the image domain. 
 
